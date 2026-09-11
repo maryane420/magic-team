@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Magic Team - Čišćenje & Prijevoz</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #1e2a3a;
+            background-color: #f8fafc;
+            line-height: 1.6;
+            scroll-behavior: smooth;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            background: #0b1a2e;
+            color: #fff;
+            padding: 18px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        nav .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .logo span {
+            color: #f5b642;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #e2e8f0;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.3s;
+            font-size: 15px;
+        }
+
+        .nav-links a:hover {
+            color: #f5b642;
+        }
+
+        .nav-links .btn-nav {
+            background: #f5b642;
+            color: #0b1a2e;
+            padding: 8px 20px;
+            border-radius: 30px;
+            font-weight: 600;
+        }
+
+        .nav-links .btn-nav:hover {
+            background: #ffd166;
+            color: #0b1a2e;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            background: linear-gradient(135deg, #0b1a2e 0%, #1a365d 100%);
+            color: #fff;
+            padding: 60px 0 80px;
+            text-align: center;
+        }
+
+        .hero img {
+            max-width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.4);
+            margin-bottom: 30px;
+            max-height: 400px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .hero h1 {
+            font-size: 50px;
+            font-weight: 800;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 span {
+            color: #f5b642;
+        }
+
+        .hero p {
+            font-size: 20px;
+            max-width: 700px;
+            margin: 0 auto 32px;
+            color: #cbd5e1;
+        }
+
+        .hero .btn-hero {
+            background: #f5b642;
+            color: #0b1a2e;
+            padding: 16px 48px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 8px 24px rgba(245, 182, 66, 0.35);
+        }
+
+        .hero .btn-hero:hover {
+            background: #ffd166;
+            transform: scale(1.02);
+        }
+
+        /* ===== SECTION TITLE ===== */
+        .section-title {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .section-title h2 {
+            font-size: 38px;
+            font-weight: 700;
+            color: #0b1a2e;
+        }
+
+        .section-title h2 span {
+            color: #f5b642;
+        }
+
+        .section-title p {
+            color: #475569;
+            font-size: 18px;
+            max-width: 600px;
+            margin: 8px auto 0;
+        }
+
+        /* ===== USLUGE ===== */
+        .usluge {
+            padding: 80px 0;
+        }
+
+        .grid-usluge {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .card-usluga {
+            background: #fff;
+            border-radius: 20px;
+            padding: 32px 24px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+            transition: 0.3s;
+            border: 1px solid #edf2f7;
+            text-align: center;
+        }
+
+        .card-usluga:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+            border-color: #f5b642;
+        }
+
+        .card-usluga img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 12px;
+            margin-bottom: 16px;
+        }
+
+        .card-usluga h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            color: #0b1a2e;
+        }
+
+        .card-usluga p {
+            color: #475569;
+            font-size: 15px;
+        }
+
+        /* ===== GALERIJA ===== */
+        .galerija {
+            padding: 80px 0;
+            background: #f1f5f9;
+        }
+
+        .grid-galerija {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 18px;
+        }
+
+        .grid-galerija .item {
+            border-radius: 14px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.07);
+            transition: 0.3s;
+            aspect-ratio: 1 / 1;
+            background: #fff;
+        }
+
+        .grid-galerija .item:hover {
+            transform: scale(1.03);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.13);
+        }
+
+        .grid-galerija .item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* ===== VIDEO SEKCIJA ===== */
+        .video-sekcija {
+            padding: 80px 0;
+            background: #fff;
+        }
+
+        .grid-video {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 30px;
+        }
+
+        .video-item {
+            background: #f8fafc;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+            border: 1px solid #edf2f7;
+            transition: 0.3s;
+        }
+
+        .video-item:hover {
+            border-color: #f5b642;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .video-item video {
+            width: 100%;
+            border-radius: 14px;
+            background: #000;
+            display: block;
+            margin-bottom: 16px;
+        }
+
+        .video-item h3 {
+            font-size: 20px;
+            color: #0b1a2e;
+            margin-bottom: 6px;
+        }
+
+        .video-item p {
+            color: #475569;
+            font-size: 15px;
+        }
+
+        /* ===== LIGHTBOX ===== */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.92);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            object-fit: contain;
+        }
+
+        .lightbox .close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: #fff;
+            font-size: 40px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            transition: 0.3s;
+        }
+
+        .lightbox .close:hover {
+            color: #f5b642;
+            transform: rotate(90deg);
+        }
+
+        .lightbox .nav-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.12);
+            color: #fff;
+            border: none;
+            font-size: 30px;
+            padding: 14px 20px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .lightbox .nav-btn:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .lightbox .prev {
+            left: 20px;
+        }
+        .lightbox .next {
+            right: 20px;
+        }
+
+        .lightbox .counter {
+            position: absolute;
+            bottom: 30px;
+            color: #94a3b8;
+            font-size: 15px;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 6px 18px;
+            border-radius: 20px;
+        }
+
+        /* ===== O NAMA ===== */
+        .o-nama {
+            padding: 80px 0;
+            background: #f1f5f9;
+        }
+
+        .o-nama .row {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .o-nama .col {
+            flex: 1 1 300px;
+        }
+
+        .o-nama .col h2 {
+            font-size: 36px;
+            margin-bottom: 16px;
+        }
+
+        .o-nama .col h2 span {
+            color: #f5b642;
+        }
+
+        .o-nama .col p {
+            color: #475569;
+            font-size: 17px;
+            margin-bottom: 12px;
+        }
+
+        .o-nama .col ul {
+            list-style: none;
+            margin-top: 16px;
+        }
+
+        .o-nama .col ul li {
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        .o-nama .col ul li i {
+            color: #f5b642;
+            margin-right: 10px;
+        }
+
+        .o-nama .col-img img {
+            width: 100%;
+            border-radius: 30px;
+            box-shadow: 0 12px 30px rgba(245, 182, 66, 0.2);
+        }
+
+        /* ===== KONTAKT ===== */
+        .kontakt {
+            padding: 80px 0;
+            background: #0b1a2e;
+            color: #fff;
+        }
+
+        .kontakt .section-title h2 {
+            color: #fff;
+        }
+
+        .kontakt .section-title p {
+            color: #cbd5e1;
+        }
+
+        .kontakt-row {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .kontakt-info {
+            flex: 1 1 280px;
+        }
+
+        .kontakt-info p {
+            margin: 16px 0;
+            font-size: 17px;
+        }
+
+        .kontakt-info i {
+            color: #f5b642;
+            width: 30px;
+        }
+
+        .kontakt-info a {
+            color: #fff;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .kontakt-info a:hover {
+            color: #f5b642;
+        }
+
+        .kontakt-form {
+            flex: 1 1 380px;
+        }
+
+        .kontakt-form input,
+        .kontakt-form select,
+        .kontakt-form textarea {
+            width: 100%;
+            padding: 14px 18px;
+            margin-bottom: 16px;
+            border: none;
+            border-radius: 12px;
+            background: #1e2f44;
+            color: #fff;
+            font-size: 15px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .kontakt-form input::placeholder,
+        .kontakt-form textarea::placeholder {
+            color: #94a3b8;
+        }
+
+        .kontakt-form input:focus,
+        .kontakt-form select:focus,
+        .kontakt-form textarea:focus {
+            background: #2a3f58;
+            box-shadow: 0 0 0 3px rgba(245, 182, 66, 0.3);
+        }
+
+        .kontakt-form select {
+            background: #1e2f44;
+            color: #fff;
+        }
+
+        .kontakt-form select option {
+            background: #0b1a2e;
+        }
+
+        .kontakt-form .btn-submit {
+            background: #f5b642;
+            color: #0b1a2e;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 17px;
+            cursor: pointer;
+            transition: 0.3s;
+            width: 100%;
+        }
+
+        .kontakt-form .btn-submit:hover {
+            background: #ffd166;
+            transform: scale(1.01);
+        }
+
+        .kontakt-form .bot-field {
+            position: absolute;
+            left: -9999px;
+            width: 1px;
+            height: 1px;
+            overflow: hidden;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #061220;
+            color: #94a3b8;
+            padding: 32px 0;
+            text-align: center;
+            font-size: 14px;
+            border-top: 1px solid #1e2f44;
+        }
+
+        footer .socials {
+            margin-top: 16px;
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+        }
+
+        footer .socials a {
+            color: #94a3b8;
+            font-size: 24px;
+            transition: 0.3s;
+            text-decoration: none;
+        }
+
+        footer .socials a:hover {
+            color: #f5b642;
+            transform: scale(1.15);
+        }
+
+        /* ===== RESPONZIVNOST ===== */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 32px;
+            }
+            .hero p {
+                font-size: 17px;
+            }
+            .nav-links {
+                gap: 14px;
+                margin-top: 10px;
+            }
+            .nav-links a {
+                font-size: 13px;
+            }
+            .section-title h2 {
+                font-size: 28px;
+            }
+            .o-nama .row {
+                flex-direction: column;
+            }
+            .kontakt-row {
+                flex-direction: column;
+            }
+            .lightbox .nav-btn {
+                font-size: 20px;
+                padding: 10px 14px;
+            }
+            .lightbox .prev {
+                left: 6px;
+            }
+            .lightbox .next {
+                right: 6px;
+            }
+            .lightbox .close {
+                top: 20px;
+                right: 20px;
+                font-size: 30px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 40px 0 60px;
+            }
+            .hero h1 {
+                font-size: 26px;
+            }
+            .hero .btn-hero {
+                padding: 14px 32px;
+                font-size: 16px;
+            }
+            .grid-usluge {
+                grid-template-columns: 1fr;
+            }
+            .grid-galerija {
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ===== NAV ===== -->
+    <nav>
+        <div class="container">
+            <div class="logo">Magic <span>Team</span></div>
+            <div class="nav-links">
+                <a href="#usluge">Usluge</a>
+                <a href="#galerija">Galerija</a>
+                <a href="#video">Video</a>
+                <a href="#onama">O nama</a>
+                <a href="#kontakt" class="btn-nav">Kontakt</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO (KARCHER OPREMA) ===== -->
+    <section class="hero">
+        <div class="container">
+            <img src="images/oprema-karcher-1.jpg" alt="Profesionalna Karcher oprema za čišćenje" />
+            <h1>Magic <span>Team</span></h1>
+            <p>Čistoća koja ostavlja dojam – čišćenje apartmana, ureda, vozila i prijevoz gostiju na jednom mjestu.</p>
+            <a href="#kontakt" class="btn-hero"><i class="fas fa-paper-plane" style="margin-right:10px;"></i> Zatraži ponudu</a>
+        </div>
+    </section>
+
+    <!-- ===== USLUGE ===== -->
+    <section class="usluge" id="usluge">
+        <div class="container">
+            <div class="section-title">
+                <h2>Naše <span>usluge</span></h2>
+                <p>Profesionalno i pouzdano – za vaše prostore, vozila i goste.</p>
+            </div>
+            <div class="grid-usluge">
+
+                <div class="card-usluga">
+                    <img src="images/prostor-prije-1.jpg" alt="Prostor nakon građevinskih radova" />
+                    <h3>Čišćenje nakon građevinskih radova</h3>
+                    <p>Uklanjanje prašine, ostataka materijala i temeljito sređivanje prostora.</p>
+                </div>
+
+                <div class="card-usluga">
+                    <img src="images/apartman-soba-1.jpg" alt="Uređena spavaća soba u apartmanu" />
+                    <h3>Čišćenje apartmana, vila i zgrada</h3>
+                    <p>Redovno ili jednokratno čišćenje za savršen dojam kod gostiju.</p>
+                </div>
+
+                <div class="card-usluga">
+                    <img src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=600" alt="Kauč" />
+                    <h3>Dubinsko čišćenje tekstila</h3>
+                    <p>Profesionalni aparati za kauče, madrace i sve tekstilne materijale.</p>
+                </div>
+
+                <div class="card-usluga">
+                    <img src="images/auto-prije-poslije-1.jpg" alt="Auto prije i poslije čišćenja" />
+                    <h3>Kemijsko čišćenje automobila</h3>
+                    <p>Unutrašnjost i vanjština – detaljno, bez tragova i mirisa.</p>
+                </div>
+
+                <div class="card-usluga">
+                    <img src="images/ducan-unutrasnjost-1.jpg" alt="Uređen poslovni prostor dućana" />
+                    <h3>Čišćenje dućana i hala</h3>
+                    <p>Poslovni prostori uvijek spremni za kupce i partnere.</p>
+                </div>
+
+                <div class="card-usluga">
+                    <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=600" alt="Ured" />
+                    <h3>Čišćenje ureda</h3>
+                    <p>Radni okoliš koji diše – uredno, higijenski, produktivno.</p>
+                </div>
+
+                <div class="card-usluga">
+                    <img src="images/taxi-aerodrom-1.jpg" alt="Prijevoz gostiju s aerodroma" />
+                    <h3>Prijevoz gostiju (aerodrom → apartman)</h3>
+                    <p>Siguran i ugodan doček, bez stresa za vaše goste.</p>
+                </div>
+
+                <div class="card-usluga">
+                    <img src="images/taxi-izlet-1.jpg" alt="Vozilo na jednodnevnom izletu" />
+                    <h3>Jednodnevni izleti</h3>
+                    <p>Plitvice, Krka, Paklenica, Zrće – organiziramo nezaboravne ture.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== GALERIJA ===== -->
+    <section class="galerija" id="galerija">
+        <div class="container">
+            <div class="section-title">
+                <h2>Naša <span>galerija</span></h2>
+                <p>Kliknite na sliku za detaljniji pregled. Fotografije s naših stvarnih usluga i vozila.</p>
+            </div>
+            <div class="grid-galerija" id="galleryGrid">
+                <!-- JavaScript će ovdje automatski ubaciti sve slike -->
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== VIDEO SEKCIJA ===== -->
+    <section class="video-sekcija" id="video">
+        <div class="container">
+            <div class="section-title">
+                <h2>Naši <span>videozapisi</span></h2>
+                <p>Pogledajte kako izgleda naš rad i naša vozila.</p>
+            </div>
+            <div class="grid-video">
+
+                <div class="video-item">
+                    <video controls preload="metadata">
+                        <source src="videos/taxi-reklama.mp4" type="video/mp4">
+                        Tvoj browser ne podržava video.
+                    </video>
+                    <h3>Taxi reklama</h3>
+                    <p>Naša vozila i usluga prijevoza gostiju.</p>
+                </div>
+
+                <div class="video-item">
+                    <video controls preload="metadata">
+                        <source src="videos/ciscenje-jacuzzia.mp4" type="video/mp4">
+                        Tvoj browser ne podržava video.
+                    </video>
+                    <h3>Čišćenje jacuzzia</h3>
+                    <p>Primjer dubinskog čišćenja jacuzzia.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== LIGHTBOX ===== -->
+    <div class="lightbox" id="lightbox">
+        <button class="close" id="closeBtn">&times;</button>
+        <button class="nav-btn prev" id="prevBtn">&#10094;</button>
+        <button class="nav-btn next" id="nextBtn">&#10095;</button>
+        <img id="lightboxImg" src="" alt="Pregled" />
+        <div class="counter" id="counter">1 / 10</div>
+    </div>
+
+    <!-- ===== O NAMA ===== -->
+    <section class="o-nama" id="onama">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <h2>Zašto <span>Magic Team</span>?</h2>
+                    <p>Mi smo tim koji razumije turizam, vlasnike apartmana i poslovne prostore. Kombiniramo <strong>vrhunsku opremu</strong>, <strong>iskustvo</strong> i <strong>fleksibilnost</strong> – dođemo kad god trebate.</p>
+                    <ul>
+                        <li><i class="fas fa-check-circle"></i> Profesionalni aparati i sredstva</li>
+                        <li><i class="fas fa-check-circle"></i> Hitne intervencije i sezonske pripreme</li>
+                        <li><i class="fas fa-check-circle"></i> Jedan poziv – čišćenje + prijevoz + izleti</li>
+                        <li><i class="fas fa-check-circle"></i> Radimo po dogovoru, 0–24 po potrebi</li>
+                    </ul>
+                </div>
+                <div class="col col-img">
+                    <img src="images/ciscenje-opreme-1.jpg" alt="Profesionalna oprema za čišćenje" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== KONTAKT ===== -->
+    <section class="kontakt" id="kontakt">
+        <div class="container">
+            <div class="section-title">
+                <h2>Kontaktirajte <span>nas</span></h2>
+                <p>Javite nam se – odgovaramo brzo i jasno.</p>
+            </div>
+            <div class="kontakt-row">
+                <div class="kontakt-info">
+                    <p>
+                        <i class="fas fa-phone-alt"></i>
+                        <a href="tel:+385916142297">+385 91 614 2297</a>
+                    </p>
+                    <p>
+                        <i class="fab fa-whatsapp"></i>
+                        <a href="https://wa.me/385916142297" target="_blank">WhatsApp: +385 91 614 2297</a>
+                    </p>
+                    <p>
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:magicteam671@gmail.com">magicteam671@gmail.com</a>
+                    </p>
+                    <p><i class="fas fa-clock"></i> Po dogovoru, 0–24</p>
+                    <p style="margin-top:24px; font-size:15px; color:#94a3b8;">
+                        <i class="fas fa-star" style="color:#f5b642;"></i>
+                        Radimo za vas – bez skrivenih troškova.
+                    </p>
+                </div>
+                <div class="kontakt-form">
+                    <form action='/hvala' method='POST' name='kontakt'>
+                        <input type="hidden" name="form-name" value="kontakt" />
+                        <p class="bot-field">
+                            <label>Ne popunjavajte ovo polje: <input name="bot-field" /></label>
+                        </p>
+                        <input type="text" name="ime" placeholder="Vaše ime" required />
+                        <input type="tel" name="telefon" placeholder="Broj telefona" required />
+                        <select name="usluga">
+                            <option value="">Odaberite uslugu</option>
+                            <option>Čišćenje nakon gradnje</option>
+                            <option>Čišćenje apartmana / vila</option>
+                            <option>Dubinsko čišćenje tekstila</option>
+                            <option>Kemijsko čišćenje auta</option>
+                            <option>Čišćenje dućana / hala</option>
+                            <option>Čišćenje ureda</option>
+                            <option>Prijevoz gostiju</option>
+                            <option>Jednodnevni izleti</option>
+                        </select>
+                        <textarea rows="3" name="poruka" placeholder="Dodatne informacije (datum, veličina, adresa...)"></textarea>
+                        <button type="submit" class="btn-submit"><i class="fas fa-paper-plane" style="margin-right:8px;"></i> Pošaljite upit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer>
+        <div class="container">
+            <div style="font-weight:600; color:#e2e8f0;">Magic Team</div>
+            <p style="margin-top:6px;">&copy; 2026. Sva prava pridržana.</p>
+            <div class="socials">
+                <a href="https://instagram.com/magiccleanteam" target="_blank" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/385916142297" target="_blank" title="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="tel:+385916142297" title="Nazovi nas">
+                    <i class="fas fa-phone-alt"></i>
+                </a>
+                <a href="mailto:magicteam671@gmail.com" title="Pošalji email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ZA GALERIJU ===== -->
+    <script>
+        // ============================================================
+        // 1. LISTA SVIH SLIKA IZ FOLDERA "images/"
+        // ============================================================
+        const imageFiles = [
+            'vila-bazen-1.jpg',
+            'vila-vanjski-1.jpg',
+            'ciscenje-opreme-1.jpg',
+            'taxi-aerodrom-1.jpg',
+            'taxi-luksuz-1.jpg',
+            'taxi-izlet-1.jpg',
+            'taxi-aerodrom-2.jpg',
+            'restoran-1.jpg',
+            'hotel-soba-1.jpg',
+            'hotel-soba-2.jpg',
+            'hotel-soba-3.jpg',
+            'hotel-kupaonica-1.jpg',
+            'hotel-sauna-1.jpg',
+            'hotel-kupaonica-2.jpg',
+            'hotel-igraonica-1.jpg',
+            'hotel-kuhinja-1.jpg',
+            'vila-bazen-2.jpg',
+            'apartman-soba-1.jpg',
+            'apartman-soba-2.jpg',
+            'apartman-kuhinja-1.jpg',
+            'apartman-terasa-1.jpg',
+            'apartman-kuhinja-2.jpg',
+            'vila-bazen-3.jpg',
+            'hotel-vanjski-1.jpg',
+            'taxi-crkva-1.jpg',
+            'hotel-vanjski-2.jpg',
+            'taxi-paklenica-1.jpg',
+            'kombi-unutrasnjost-1.jpg',
+            'kombi-daruj-krv-1.jpg',
+            'kombi-unutrasnjost-2.jpg',
+            'kombi-vanjski-1.jpg',
+            'ducan-unutrasnjost-1.jpg',
+            'skola-teretana-1.jpg',
+            'skola-ucionica-1.jpg',
+            'skola-kupaonica-1.jpg',
+            'prostor-prije-1.jpg',
+            'prostor-ciscenje-1.jpg',
+            'kupaonica-ciscenje-1.jpg',
+            'hotel-adria-1.jpg',
+            'restoran-vanjski-1.jpg',
+            'hotel-bazen-1.jpg',
+            'auto-prije-poslije-1.jpg',
+            'auto-unutrasnjost-1.jpg',
+            'gradiliste-1.jpg',
+            'hgs-vozilo-1.jpg',
+            'oprema-karcher-1.jpg',
+            'hotel-preko-1.jpg',
+            'hotel-preko-2.jpg'
+        ];
+
+        // ============================================================
+        // 2. GENERIRANJE GALERIJE
+        // ============================================================
+        const gallery = document.getElementById('galleryGrid');
+        let images = [];
+
+        imageFiles.forEach((file, index) => {
+            const imgPath = 'images/' + file;
+            images.push(imgPath);
+
+            const div = document.createElement('div');
+            div.className = 'item';
+            div.dataset.index = index;
+
+            const img = document.createElement('img');
+            img.src = imgPath;
+            img.alt = file.replace(/\.[^/.]+$/, '').replace(/[_-]/g, ' ');
+
+            div.appendChild(img);
+            gallery.appendChild(div);
+
+            div.addEventListener('click', () => {
+                currentIndex = index;
+                openLightbox(index);
+            });
+        });
+
+        // ============================================================
+        // 3. LIGHTBOX
+        // ============================================================
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const closeBtn = document.getElementById('closeBtn');
+        const prevBtn = document.getElementById('prevBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const counter = document.getElementById('counter');
+
+        let currentIndex = 0;
+
+        function openLightbox(index) {
+            lightboxImg.src = images[index];
+            counter.textContent = `${index + 1} / ${images.length}`;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeImage(direction) {
+            currentIndex = (currentIndex + direction + images.length) % images.length;
+            lightboxImg.src = images[currentIndex];
+            counter.textContent = `${currentIndex + 1} / ${images.length}`;
+        }
+
+        closeBtn.addEventListener('click', closeLightbox);
+        prevBtn.addEventListener('click', () => changeImage(-1));
+        nextBtn.addEventListener('click', () => changeImage(1));
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeLightbox();
+            if (e.key === 'ArrowLeft') changeImage(-1);
+            if (e.key === 'ArrowRight') changeImage(1);
+        });
+
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+    </script>
+
+</body>
+</html>
